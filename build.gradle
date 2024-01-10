@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+}
+
+group 'io.githib.qaguru'
+version '1.0'
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation (
+            'com.codeborne:selenide:6.19.0',
+            'org.junit.jupiter:junit-jupiter:5.9.3',
+            'org.slf4j:slf4j-simple:2.0.7',
+            'org.aeonbits.owner:owner:1.0.4'
+    )
+}
+
+tasks.withType(Test) {
+    systemProperties(System.getProperties())
+    useJUnitPlatform()
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
